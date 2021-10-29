@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-8">
+      <%= form_tag movies_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control",
+          placeholder: "Find a movie"
+        %>
+        <%= submit_tag "Search", class: "btn btn-primary" %>
+      <% end %>
+      <div id="movies">
+      <%#= Check the type of the first document inside the movies array %>
+        <% if @movies.first.is_a? Movie %>
+          <% @movies.each do |movie| %>
+            <h4><%= movie.title %></h4>
+            <p><%= movie.synopsis %></p>
+          <% end %>
+        <% else %>
+          <% @movies.each do |pg_document| %>
+            <h4><%= pg_document.searchable.title %></h4>
+            <p><%= pg_document.searchable.synopsis %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
